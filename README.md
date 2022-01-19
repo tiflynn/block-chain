@@ -1,5 +1,14 @@
 # block-chain
 Udemy Blockchain Course
 
-Run Unit Test
+
+## Install Dependencies 
+
+ Navigate to the root directory of the project and run the following command:
+
+```npm install```
+
+
+## Run Unit Test
+
 ``` npm run test```
