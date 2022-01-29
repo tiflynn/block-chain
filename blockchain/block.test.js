@@ -17,6 +17,16 @@ describe('Block', () => {
         expect(block.lastHash).toEqual(lastBlock.hash)
     });
 
+    it('generates a hast that matches the difficulty', () => {
+        expect(block.hash.substring(0, block.difficulty)).toEqual('0'.repeat(block.difficulty))
+    });
+
+    it('lowers difficulty for slowly mined blocks', () => {
+        expect(Block.adjustDifficulty(block, block.timestamp+360000)).toEqual(block.difficulty-1)
+    });
 
 
+    it('raises difficulty for quickly mined blocks', () => {
+        expect(Block.adjustDifficulty(block, block.timestamp+1)).toEqual(block.difficulty+1)
+    });
 });
