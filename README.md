@@ -12,3 +12,7 @@ Udemy Blockchain Course
 ## Run Unit Test
 
 ``` npm run test```
+
+## Run Dev Test
+
+``` npm run dev-test```
