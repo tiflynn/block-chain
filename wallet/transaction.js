@@ -8,6 +8,26 @@ class Transaction{
         this.outputs = [];
     }
 
+    /**
+     * Handles adding a new transaction or rather a new output obje to an existing transaction by the sender. Updates the output, detailing
+     * detailing the resulting amount and adds a new output for the new recipient.
+     * @param {*} senderWallet 
+     * @param {*} recipient 
+     * @param {*} amount 
+     * @returns a Transaction object
+     */
+    update(senderWallet, recipient, amount){
+        const senderOutput = this.outputs.find(output => output.address === senderWallet.publicKey);
+        if(amount > senderOutput.amount) {
+            console.log(`Amount: ${amount} exceeds balance.`);
+            return;
+        }
+        senderOutput.amount = senderOutput.amount - amount;
+        this.outputs.push({ amount, address:recipient});
+        Transaction.signTransaction(this, senderWallet);
+        return this;
+    }
+
     static newTransaction(senderWallet, recipient, amount) {
 
         if(amount > senderWallet.balance){
@@ -40,5 +60,7 @@ class Transaction{
             transaction.input.signature, 
             ChainUtil.hash(transaction.outputs));
     }
+
+    
 }
 module.exports = Transaction;
